@@ -4,8 +4,11 @@ const connectDB = require("./config/db");
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-//Connect DB
+// Connect DB
 connectDB();
+
+// Middlewere
+app.use(express.json({ extended: false })); // TODO is this object needed ?
 
 app.get("/", (req, res) => {
   res.send("Renato API version 1.0");
