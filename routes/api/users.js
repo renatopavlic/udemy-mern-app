@@ -1,6 +1,8 @@
 const express = require("express");
 const gravatar = require("gravatar");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const config = require("config");
 //Create router
 const router = express.Router();
 // Express Validation library
@@ -66,8 +68,24 @@ router.post(
       await user.save();
 
       // Return jwt token
+      const payload = {
+        user: {
+          id: user.id, // when user.save(), we get back mongo db user object with user._id but mongoose transform to to just user.id
+        },
+      };
 
-      res.send("User registerd");
+      jwt.sign(
+        payload,
+        config.get("jwtSecret"),
+        {
+          expiresIn: 360000, // 3600 is one hour (added 00 for longer time for testing)
+        },
+        (err, token) => {
+          if (err) throw err;
+          console.log("token: ", token);
+          res.json({ token });
+        }
+      );
     } catch (error) {
       console.error(error.message);
       res.status(500).send("Server error");

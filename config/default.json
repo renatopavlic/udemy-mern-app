@@ -1,3 +1,4 @@
 {
-  "mongoURI": "mongodb+srv://renato123:renato123@udemy-mern-clustor.zdtfv.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+  "mongoURI": "mongodb+srv://renato123:renato123@udemy-mern-clustor.zdtfv.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+  "jwtSecret": "some-secret-token"
 }
